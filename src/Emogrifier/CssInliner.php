@@ -1099,6 +1099,9 @@ class CssInliner extends AbstractHtmlProcessor
 
         $headElement = $this->getHeadElement();
         $headElement->appendChild($styleElement);
+
+        $bodyElement = $this->getBodyElement();
+        $bodyElement->appendChild($styleElement->cloneNode(true));
     }
 
     /**
@@ -1111,5 +1114,17 @@ class CssInliner extends AbstractHtmlProcessor
     private function getHeadElement()
     {
         return $this->domDocument->getElementsByTagName('head')->item(0);
+    }
+
+    /**
+     * Returns the BODY element.
+     *
+     * This method assumes that there always is a BODY element.
+     *
+     * @return \DOMElement
+     */
+    private function getBodyElement()
+    {
+        return $this->domDocument->getElementsByTagName('body')->item(0);
     }
 }
